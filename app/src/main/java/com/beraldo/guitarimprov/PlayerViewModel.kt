@@ -50,17 +50,34 @@ class PlayerViewModel : ViewModel() {
 
     var playing = true
 
-    val current: MutableLiveData<String> = MutableLiveData()
-    val next: MutableLiveData<String> = MutableLiveData()
+    val currentKey: MutableLiveData<String> = MutableLiveData()
+    val currentSet: MutableLiveData<String> = MutableLiveData()
+    val currentInv: MutableLiveData<String> = MutableLiveData()
+
+    val nextKey: MutableLiveData<String> = MutableLiveData()
+    val nextSet: MutableLiveData<String> = MutableLiveData()
+    val nextInv: MutableLiveData<String> = MutableLiveData()
 
     fun beginRandom() {
         val runnableCode = object : Runnable {
             override fun run() {
-                when (next.value) {
-                    null -> current.postValue(getRandomKeyValue())
-                    else -> current.postValue(next.value)
+                val randomKeyValue = getRandomKeyValue()
+                when (nextKey.value) {
+                    null -> {
+                        currentKey.postValue(randomKeyValue.key)
+                        currentSet.postValue(randomKeyValue.set)
+                        currentInv.postValue(randomKeyValue.inversion)
+                    }
+                    else -> {
+                        currentKey.postValue(nextKey.value)
+                        currentSet.postValue(nextSet.value)
+                        currentInv.postValue(nextInv.value)
+                    }
                 }
-                next.postValue(getRandomKeyValue())
+
+                nextKey.postValue(randomKeyValue.key)
+                nextSet.postValue(randomKeyValue.set)
+                nextInv.postValue(randomKeyValue.inversion)
 
                 handler.postDelayed(this, 2000)
             }
@@ -68,7 +85,10 @@ class PlayerViewModel : ViewModel() {
         handler.post(runnableCode)
     }
 
-    fun getRandomKeyValue() = keys.shuffled().take(1)[0]
+    fun getRandomKeyValue() = RandomValueSet(
+        key = keys.shuffled().take(1)[0],
+        set = sets.shuffled().take(1)[0],
+        inversion = inversions.shuffled().take(1)[0])
 
     fun onPlayPauseClick() {
         playing = if (playing) {
@@ -79,4 +99,6 @@ class PlayerViewModel : ViewModel() {
             true
         }
     }
+
+    data class RandomValueSet(var key: String, var set: String, var inversion: String)
 }

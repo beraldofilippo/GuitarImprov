@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/current_text"
+            android:id="@+id/current_key"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -26,15 +26,35 @@
             app:fontFamily="@font/comfortaa_bold" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/next_text"
+            android:id="@+id/current_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/current_text"
-            android:layout_toEndOf="@id/current_text"
-            android:padding="25dp"
+            android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:textSize="25sp"
+            android:layout_below="@id/current_key"
             app:fontFamily="@font/comfortaa_bold" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/current_inv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:layout_below="@id/current_set"
+            app:fontFamily="@font/comfortaa_bold" />
+
+        <!--<android.support.v7.widget.AppCompatTextView-->
+            <!--android:id="@+id/next_key"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="@id/current_key"-->
+            <!--android:layout_toEndOf="@id/current_key"-->
+            <!--android:padding="25dp"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="25sp"-->
+            <!--app:fontFamily="@font/comfortaa_bold" />-->
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/play_pause"

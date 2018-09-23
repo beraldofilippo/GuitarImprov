@@ -23,8 +23,10 @@ class PlayerFragment : Fragment() {
         fun newInstance() = PlayerFragment()
     }
 
-    private val currentText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_text) }
-    private val nextText: TextView by lazy { activity!!.findViewById<TextView>(R.id.next_text) }
+    private val currentKeyText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_key) }
+    private val currentSetText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_set) }
+    private val currentInvText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_inv) }
+//    private val nextKeyText: TextView by lazy { activity!!.findViewById<TextView>(R.id.next_key) }
     private val playPauseButton: LottieAnimationView by lazy { activity!!.findViewById<LottieAnimationView>(R.id.play_pause) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +39,19 @@ class PlayerFragment : Fragment() {
         val model = ViewModelProviders.of(this)
                 .get(PlayerViewModel::class.java)
 
-        model.current.observe(this, Observer<String> { newValue ->
-            currentText.text = newValue
+        model.currentKey.observe(this, Observer<String> { newValue ->
+            currentKeyText.text = newValue
         })
-        model.next.observe(this, Observer<String> { newValue ->
-            nextText.text = newValue
+        model.nextKey.observe(this, Observer<String> { newValue ->
+//            nextKeyText.text = newValue
+        })
+
+        model.currentSet.observe(this, Observer<String> { newValue ->
+            currentSetText.text = newValue
+        })
+
+        model.currentInv.observe(this, Observer<String> { newValue ->
+            currentInvText.text = newValue
         })
 
         playPauseButton.progress = 1f
