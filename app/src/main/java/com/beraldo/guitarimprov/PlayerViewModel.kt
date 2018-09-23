@@ -18,14 +18,17 @@ class PlayerViewModel : ViewModel() {
     fun beginRandom() {
         val runnableCode = object : Runnable {
             override fun run() {
-                val number = Math.random().toString()
-
-                current.postValue(next.value)
-                next.postValue(number)
+                when (next.value) {
+                    null -> current.postValue(getRandomKeyValue())
+                    else -> current.postValue(next.value)
+                }
+                next.postValue(getRandomKeyValue())
 
                 handler.postDelayed(this, 2000)
             }
         }
         handler.post(runnableCode)
     }
+
+fun getRandomKeyValue() = Math.random().toString()
 }
