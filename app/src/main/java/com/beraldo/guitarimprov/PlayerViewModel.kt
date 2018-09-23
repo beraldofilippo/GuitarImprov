@@ -33,6 +33,19 @@ class PlayerViewModel : ViewModel() {
         add("Bb")
     }
 
+    val sets = ArrayList<String>().apply {
+        add("Set 1")
+        add("Set 2")
+        add("Set 3")
+        add("Set 4")
+    }
+
+    val inversions = ArrayList<String>().apply {
+        add("1st Inv")
+        add("2nd Inv")
+        add("Fundamental")
+    }
+
     val handler = Handler()
 
     val current: MutableLiveData<String> = MutableLiveData()
