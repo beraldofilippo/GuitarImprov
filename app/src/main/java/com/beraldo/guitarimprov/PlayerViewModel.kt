@@ -48,6 +48,8 @@ class PlayerViewModel : ViewModel() {
 
     val handler = Handler()
 
+    var playing = true
+
     val current: MutableLiveData<String> = MutableLiveData()
     val next: MutableLiveData<String> = MutableLiveData()
 
@@ -66,5 +68,15 @@ class PlayerViewModel : ViewModel() {
         handler.post(runnableCode)
     }
 
-fun getRandomKeyValue() = keys.shuffled().take(1)[0]
+    fun getRandomKeyValue() = keys.shuffled().take(1)[0]
+
+    fun onPlayPauseClick() {
+        playing = if (playing) {
+            handler.removeCallbacksAndMessages(null)
+            false
+        } else {
+            beginRandom()
+            true
+        }
+    }
 }

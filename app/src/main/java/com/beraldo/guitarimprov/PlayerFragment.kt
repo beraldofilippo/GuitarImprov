@@ -25,8 +25,8 @@ class PlayerFragment : Fragment() {
 
     private val currentText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_text) }
     private val nextText: TextView by lazy { activity!!.findViewById<TextView>(R.id.next_text) }
-
     private val playPauseButton: LottieAnimationView by lazy { activity!!.findViewById<LottieAnimationView>(R.id.play_pause) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,7 +44,9 @@ class PlayerFragment : Fragment() {
             nextText.text = newValue
         })
 
+        playPauseButton.progress = 1f
         playPauseButton.setOnClickListener {
+            model.onPlayPauseClick()
             startAnimation(playPauseButton)
         }
 
