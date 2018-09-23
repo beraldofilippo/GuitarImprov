@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
-import android.R.attr.start
 import android.animation.ValueAnimator
 
 
@@ -28,7 +27,6 @@ class PlayerFragment : Fragment() {
     private val nextText: TextView by lazy { activity!!.findViewById<TextView>(R.id.next_text) }
 
     private val playPauseButton: LottieAnimationView by lazy { activity!!.findViewById<LottieAnimationView>(R.id.play_pause) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,7 +45,7 @@ class PlayerFragment : Fragment() {
         })
 
         playPauseButton.setOnClickListener {
-            startCheckAnimation()
+            startAnimation(playPauseButton)
         }
 
         model.beginRandom()
@@ -57,12 +55,12 @@ class PlayerFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_player, container, false)
     }
 
-    private fun startCheckAnimation() {
+    private fun startAnimation(lottieAnimationView: LottieAnimationView) {
         val animator = ValueAnimator.ofFloat(0f, 1f)
         animator.addUpdateListener { valueAnimator ->
-            playPauseButton.progress = valueAnimator.animatedValue as Float }
+            lottieAnimationView.progress = valueAnimator.animatedValue as Float }
 
-        if (playPauseButton.progress == 0f) {
+        if (lottieAnimationView.progress == 0f) {
             animator.start()
         } else {
             animator.reverse()
