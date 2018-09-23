@@ -20,7 +20,7 @@ class PlayerViewModel : ViewModel() {
             override fun run() {
                 val number = Math.random().toString()
 
-                current.postValue(number)
+                current.postValue(next.value)
                 next.postValue(number)
 
                 handler.postDelayed(this, 2000)
