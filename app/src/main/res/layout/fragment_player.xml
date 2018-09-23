@@ -30,6 +30,5 @@
         android:layout_height="125dp"
         app:lottie_fileName="play_pause.json"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        />
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
