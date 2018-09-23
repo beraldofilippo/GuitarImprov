@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--background by SVGBackgrounds.com-->
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/current_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fontFamily="@font/comfortaa_bold"
-        android:textSize="100sp"
-        android:textColor="@android:color/white"
-        android:layout_centerInParent="true"/>
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_background"
+        android:scaleType="centerCrop"/>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/next_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fontFamily="@font/comfortaa_bold"
-        android:textSize="25sp"
-        android:textColor="@android:color/white"
-        android:layout_alignBaseline="@id/current_text"
-        android:layout_toEndOf="@id/current_text"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/play_pause"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        app:lottie_fileName="play_pause.json"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/current_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:textSize="100sp"
+            app:fontFamily="@font/comfortaa_bold" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/next_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/current_text"
+            android:layout_toEndOf="@id/current_text"
+            android:padding="25dp"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            app:fontFamily="@font/comfortaa_bold" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/play_pause"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            app:lottie_fileName="play_pause.json" />
+    </RelativeLayout>
+</FrameLayout>
