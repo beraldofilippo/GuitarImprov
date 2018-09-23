@@ -3,6 +3,7 @@ package com.beraldo.guitarimprov
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.os.Handler
+import java.util.*
 
 
 /**
@@ -10,6 +11,28 @@ import android.os.Handler
  * http://github.com/beraldofilippo
  */
 class PlayerViewModel : ViewModel() {
+
+    val keys = ArrayList<String>().apply {
+        add("C")
+        add("C#")
+        add("Cb")
+        add("D")
+        add("D#")
+        add("Db")
+        add("E")
+        add("Eb")
+        add("F")
+        add("F#")
+        add("G")
+        add("G#")
+        add("Gb")
+        add("A")
+        add("A#")
+        add("Ab")
+        add("B")
+        add("Bb")
+    }
+
     val handler = Handler()
 
     val current: MutableLiveData<String> = MutableLiveData()
@@ -30,5 +53,5 @@ class PlayerViewModel : ViewModel() {
         handler.post(runnableCode)
     }
 
-fun getRandomKeyValue() = Math.random().toString()
+fun getRandomKeyValue() = keys.shuffled().take(1)[0]
 }
