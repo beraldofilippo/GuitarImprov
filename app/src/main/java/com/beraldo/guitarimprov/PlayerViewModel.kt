@@ -48,7 +48,7 @@ class PlayerViewModel : ViewModel() {
 
     val handler = Handler()
 
-    var playing = true
+    private var playing = false
 
     val currentKey: MutableLiveData<String> = MutableLiveData()
     val currentSet: MutableLiveData<String> = MutableLiveData()
@@ -58,7 +58,9 @@ class PlayerViewModel : ViewModel() {
     val nextSet: MutableLiveData<String> = MutableLiveData()
     val nextInv: MutableLiveData<String> = MutableLiveData()
 
-    fun beginRandom() {
+    val playingStatus: MutableLiveData<Boolean> = MutableLiveData()
+
+    private fun beginRandom() {
         val runnableCode = object : Runnable {
             override fun run() {
                 val randomKeyValue = getRandomKeyValue()
@@ -86,18 +88,18 @@ class PlayerViewModel : ViewModel() {
     }
 
     fun getRandomKeyValue() = RandomValueSet(
-        key = keys.shuffled().take(1)[0],
-        set = sets.shuffled().take(1)[0],
-        inversion = inversions.shuffled().take(1)[0])
+            key = keys.shuffled().take(1)[0],
+            set = sets.shuffled().take(1)[0],
+            inversion = inversions.shuffled().take(1)[0])
 
     fun onPlayPauseClick() {
-        playing = if (playing) {
+        playing = !playing
+        if (!playing) {
             handler.removeCallbacksAndMessages(null)
-            false
         } else {
             beginRandom()
-            true
         }
+        playingStatus.postValue(playing)
     }
 
     data class RandomValueSet(var key: String, var set: String, var inversion: String)

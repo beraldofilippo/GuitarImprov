@@ -54,25 +54,25 @@ class PlayerFragment : Fragment() {
             currentInvText.text = newValue
         })
 
-        playPauseButton.progress = 1f
+        model.playingStatus.observe(this, Observer<Boolean> { playing ->
+            startAnimation(playPauseButton, playing)
+        })
+
         playPauseButton.setOnClickListener {
             model.onPlayPauseClick()
-            startAnimation(playPauseButton)
         }
-
-        model.beginRandom()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_player, container, false)
     }
 
-    private fun startAnimation(lottieAnimationView: LottieAnimationView) {
-        val animator = ValueAnimator.ofFloat(0f, 1f)
+    private fun startAnimation(lottieAnimationView: LottieAnimationView, playing: Boolean?) {
+        val animator = ValueAnimator.ofFloat(0f, 1f) // 0F Play is clickable, 1F pause is clickable
         animator.addUpdateListener { valueAnimator ->
             lottieAnimationView.progress = valueAnimator.animatedValue as Float }
 
-        if (lottieAnimationView.progress == 0f) {
+        if (playing == true) {
             animator.start()
         } else {
             animator.reverse()
