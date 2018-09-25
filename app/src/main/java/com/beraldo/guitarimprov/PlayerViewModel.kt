@@ -12,7 +12,12 @@ import java.util.*
  */
 class PlayerViewModel : ViewModel() {
 
-    val keys = ArrayList<String>().apply {
+    companion object {
+        private const val DURATION_MIN = 15
+        private const val DURATION_MAX = 600
+    }
+
+    private val keys = ArrayList<String>().apply {
         add("C")
         add("C#")
         add("Cb")
@@ -33,14 +38,14 @@ class PlayerViewModel : ViewModel() {
         add("Bb")
     }
 
-    val sets = ArrayList<String>().apply {
+    private val sets = ArrayList<String>().apply {
         add("Set 1")
         add("Set 2")
         add("Set 3")
         add("Set 4")
     }
 
-    val inversions = ArrayList<String>().apply {
+    private val inversions = ArrayList<String>().apply {
         add("1st Inv")
         add("2nd Inv")
         add("Fundamental")
@@ -50,38 +55,26 @@ class PlayerViewModel : ViewModel() {
 
     private var playing = false
 
+    private var duration = 20
+
     val currentKey: MutableLiveData<String> = MutableLiveData()
     val currentSet: MutableLiveData<String> = MutableLiveData()
     val currentInv: MutableLiveData<String> = MutableLiveData()
 
-    val nextKey: MutableLiveData<String> = MutableLiveData()
-    val nextSet: MutableLiveData<String> = MutableLiveData()
-    val nextInv: MutableLiveData<String> = MutableLiveData()
-
     val playingStatus: MutableLiveData<Boolean> = MutableLiveData()
+
+    val durationStatus: MutableLiveData<Int> = MutableLiveData()
 
     private fun beginRandom() {
         val runnableCode = object : Runnable {
             override fun run() {
                 val randomKeyValue = getRandomKeyValue()
-                when (nextKey.value) {
-                    null -> {
-                        currentKey.postValue(randomKeyValue.key)
-                        currentSet.postValue(randomKeyValue.set)
-                        currentInv.postValue(randomKeyValue.inversion)
-                    }
-                    else -> {
-                        currentKey.postValue(nextKey.value)
-                        currentSet.postValue(nextSet.value)
-                        currentInv.postValue(nextInv.value)
-                    }
-                }
 
-                nextKey.postValue(randomKeyValue.key)
-                nextSet.postValue(randomKeyValue.set)
-                nextInv.postValue(randomKeyValue.inversion)
+                currentKey.postValue(randomKeyValue.key)
+                currentSet.postValue(randomKeyValue.set)
+                currentInv.postValue(randomKeyValue.inversion)
 
-                handler.postDelayed(this, 2000)
+                handler.postDelayed(this, duration * 1000L)
             }
         }
         handler.post(runnableCode)
@@ -100,6 +93,24 @@ class PlayerViewModel : ViewModel() {
             beginRandom()
         }
         playingStatus.postValue(playing)
+    }
+
+    fun onPlusClick() {
+        durationStatus.postValue(increaseDuration())
+    }
+
+    fun onMinusClick() {
+        durationStatus.postValue(decreaseDuration())
+    }
+
+    private fun increaseDuration(): Int {
+        return if (duration + 5 > DURATION_MAX) DURATION_MAX
+        else duration + 5
+    }
+
+    private fun decreaseDuration(): Int {
+        return if (duration - 5 < DURATION_MIN) DURATION_MIN
+        else duration - 5
     }
 
     data class RandomValueSet(var key: String, var set: String, var inversion: String)
