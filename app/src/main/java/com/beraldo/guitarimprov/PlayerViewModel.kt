@@ -65,6 +65,11 @@ class PlayerViewModel : ViewModel() {
 
     val durationStatus: MutableLiveData<Int> = MutableLiveData()
 
+    init { // Set initial state
+        playingStatus.postValue(playing)
+        durationStatus.postValue(duration)
+    }
+
     private fun beginRandom() {
         val runnableCode = object : Runnable {
             override fun run() {
@@ -104,13 +109,23 @@ class PlayerViewModel : ViewModel() {
     }
 
     private fun increaseDuration(): Int {
-        return if (duration + 5 > DURATION_MAX) DURATION_MAX
-        else duration + 5
+        if (duration + 5 > DURATION_MAX) {
+            duration = DURATION_MAX
+        }
+        else {
+            duration += 5
+        }
+        return duration
     }
 
     private fun decreaseDuration(): Int {
-        return if (duration - 5 < DURATION_MIN) DURATION_MIN
-        else duration - 5
+        if (duration - 5 < DURATION_MIN) {
+            duration = DURATION_MIN
+        }
+        else {
+            duration -= 5
+        }
+        return duration
     }
 
     data class RandomValueSet(var key: String, var set: String, var inversion: String)

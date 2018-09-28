@@ -60,7 +60,7 @@ class PlayerFragment : Fragment() {
         })
 
         model.durationStatus.observe(this, Observer<Int> { newValue ->
-            durationText.text = newValue.toString()
+            durationText.text = getFormattedDuration(newValue)
         })
 
         minusDuration.setOnClickListener {
@@ -75,6 +75,8 @@ class PlayerFragment : Fragment() {
             model.onPlayPauseClick()
         }
     }
+
+    private fun getFormattedDuration(newValue: Int?) = newValue.toString().plus("s")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_player, container, false)
