@@ -2,4 +2,5 @@
 <resources>
     <dimen name="main_padding">16dp</dimen>
     <dimen name="button_size">48dp</dimen>
+    <dimen name="small_padding">6dp</dimen>
 </resources>

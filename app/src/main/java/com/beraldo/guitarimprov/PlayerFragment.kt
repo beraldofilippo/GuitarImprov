@@ -107,11 +107,11 @@ class PlayerFragment : Fragment() {
     }
 
     private fun showCredits() {
-        AlertDialog.Builder(activity?.baseContext!!).create().apply {
+        AlertDialog.Builder(activity as FullscreenActivity).create().apply {
             setTitle("Credits")
             setCancelable(false)
             setMessage(resources.getString(R.string.credits))
-            setButton(AlertDialog.BUTTON_NEUTRAL, "OK") { dialog, _ -> dialog.dismiss() }
+            setButton(AlertDialog.BUTTON_POSITIVE, "OK") { dialog, _ -> dialog.dismiss() }
             show()
         }
     }
