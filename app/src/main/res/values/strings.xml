@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">GuitarImprov</string>
-
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="hit_play">Hit play!</string>
+    <string name="credits">Filippo Beraldo - https://github.com/beraldofilippo/GuitarImprov\nIcon designed by Adib Suhlton from www.flaticon.com</string>
 </resources>
