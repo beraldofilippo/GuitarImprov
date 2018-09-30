@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ class PlayerFragment : Fragment() {
 
     private val minusDuration: ImageView by lazy { activity!!.findViewById<ImageView>(R.id.minus) }
     private val plusDuration: ImageView by lazy { activity!!.findViewById<ImageView>(R.id.plus) }
+    private val info: ImageView by lazy { activity!!.findViewById<ImageView>(R.id.info) }
 
     private val playPauseButton: LottieAnimationView by lazy { activity!!.findViewById<LottieAnimationView>(R.id.play_pause) }
 
@@ -56,7 +58,7 @@ class PlayerFragment : Fragment() {
             currentInvText.text = newValue
         })
 
-        model.currentScale.observe(this, Observer<String> {newValue ->
+        model.currentScale.observe(this, Observer<String> { newValue ->
             currentScaleText.text = newValue
         })
 
@@ -79,6 +81,10 @@ class PlayerFragment : Fragment() {
         playPauseButton.setOnClickListener {
             model.onPlayPauseClick()
         }
+
+        info.setOnClickListener {
+            showCredits()
+        }
     }
 
     private fun getFormattedDuration(newValue: Int?) = newValue.toString().plus("s")
@@ -97,6 +103,16 @@ class PlayerFragment : Fragment() {
             animator.start()
         } else {
             animator.reverse()
+        }
+    }
+
+    private fun showCredits() {
+        AlertDialog.Builder(activity?.baseContext!!).create().apply {
+            setTitle("Credits")
+            setCancelable(false)
+            setMessage(resources.getString(R.string.credits))
+            setButton(AlertDialog.BUTTON_NEUTRAL, "OK") { dialog, _ -> dialog.dismiss() }
+            show()
         }
     }
 }

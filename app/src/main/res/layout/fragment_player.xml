@@ -110,6 +110,7 @@
             app:lottie_fileName="play_pause.json" />
 
         <ImageView
+            android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_info"
