@@ -29,6 +29,17 @@
             app:fontFamily="@font/comfortaa_bold" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/current_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:layout_alignBaseline="@id/current_key"
+            android:layout_toEndOf="@id/current_key"
+            android:textSize="50sp"
+            app:fontFamily="@font/comfortaa_bold" />
+
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/current_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

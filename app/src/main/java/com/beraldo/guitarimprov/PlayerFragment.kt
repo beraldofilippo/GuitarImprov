@@ -26,6 +26,7 @@ class PlayerFragment : Fragment() {
     private val currentKeyText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_key) }
     private val currentSetText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_set) }
     private val currentInvText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_inv) }
+    private val currentScaleText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_scale) }
     private val durationText: TextView by lazy { activity!!.findViewById<TextView>(R.id.duration) }
 
     private val minusDuration: ImageView by lazy { activity!!.findViewById<ImageView>(R.id.minus) }
@@ -53,6 +54,10 @@ class PlayerFragment : Fragment() {
 
         model.currentInv.observe(this, Observer<String> { newValue ->
             currentInvText.text = newValue
+        })
+
+        model.currentScale.observe(this, Observer<String> {newValue ->
+            currentScaleText.text = newValue
         })
 
         model.playingStatus.observe(this, Observer<Boolean> { playing ->

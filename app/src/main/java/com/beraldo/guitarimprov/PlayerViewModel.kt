@@ -52,6 +52,11 @@ class PlayerViewModel : ViewModel() {
         add("Fundamental")
     }
 
+    private val scale = ArrayList<String>().apply {
+        add("Maj")
+        add("Min")
+    }
+
     val handler = Handler()
 
     private var playing = false
@@ -61,6 +66,7 @@ class PlayerViewModel : ViewModel() {
     val currentKey: MutableLiveData<String> = MutableLiveData()
     val currentSet: MutableLiveData<String> = MutableLiveData()
     val currentInv: MutableLiveData<String> = MutableLiveData()
+    val currentScale: MutableLiveData<String> = MutableLiveData()
 
     val playingStatus: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -79,6 +85,7 @@ class PlayerViewModel : ViewModel() {
                 currentKey.postValue(randomKeyValue.key)
                 currentSet.postValue(randomKeyValue.set)
                 currentInv.postValue(randomKeyValue.inversion)
+                currentScale.postValue(randomKeyValue.scale)
 
                 handler.postDelayed(this, duration * 1000L)
             }
@@ -89,7 +96,8 @@ class PlayerViewModel : ViewModel() {
     fun getRandomKeyValue() = RandomValueSet(
             key = keys.shuffled().take(1)[0],
             set = sets.shuffled().take(1)[0],
-            inversion = inversions.shuffled().take(1)[0])
+            inversion = inversions.shuffled().take(1)[0],
+            scale = scale.shuffled().take(1)[0])
 
     fun onPlayPauseClick() {
         playing = !playing
@@ -129,5 +137,5 @@ class PlayerViewModel : ViewModel() {
         return duration
     }
 
-    data class RandomValueSet(var key: String, var set: String, var inversion: String)
+    data class RandomValueSet(var key: String, var set: String, var inversion: String, var scale: String)
 }
