@@ -13,8 +13,9 @@ import java.util.*
 class PlayerViewModel : ViewModel() {
 
     companion object {
-        private const val DURATION_MIN = 15
+        private const val DURATION_MIN = 5
         private const val DURATION_MAX = 600
+        private const val DURATION_DELTA_VALUE = 1
     }
 
     private val keys = ArrayList<String>().apply {
@@ -55,7 +56,7 @@ class PlayerViewModel : ViewModel() {
 
     private var playing = false
 
-    private var duration = 20
+    private var duration = 10
 
     val currentKey: MutableLiveData<String> = MutableLiveData()
     val currentSet: MutableLiveData<String> = MutableLiveData()
@@ -109,21 +110,21 @@ class PlayerViewModel : ViewModel() {
     }
 
     private fun increaseDuration(): Int {
-        if (duration + 5 > DURATION_MAX) {
+        if (duration + DURATION_DELTA_VALUE > DURATION_MAX) {
             duration = DURATION_MAX
         }
         else {
-            duration += 5
+            duration += DURATION_DELTA_VALUE
         }
         return duration
     }
 
     private fun decreaseDuration(): Int {
-        if (duration - 5 < DURATION_MIN) {
+        if (duration - DURATION_DELTA_VALUE < DURATION_MIN) {
             duration = DURATION_MIN
         }
         else {
-            duration -= 5
+            duration -= DURATION_DELTA_VALUE
         }
         return duration
     }
