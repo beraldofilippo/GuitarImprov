@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">GuitarImprov</string>
     <string name="hit_play">Hit play!</string>
-    <string name="credits">Filippo Beraldo - https://github.com/beraldofilippo/GuitarImprov\nIcon designed by Adib Suhlton from www.flaticon.com</string>
+    <string name="credits">Filippo Beraldo - https://github.com/beraldofilippo/GuitarImprov\nIcon designed by Adib Suhlton from www.flaticon.com\nBeep Short sound from Youtube Creator Studio</string>
+    <string name="ok">OK</string>
+    <string name="credits_title">Credits</string>
 </resources>

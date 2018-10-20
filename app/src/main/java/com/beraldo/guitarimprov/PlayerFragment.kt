@@ -3,6 +3,7 @@ package com.beraldo.guitarimprov
 import android.animation.ValueAnimator
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
@@ -36,8 +37,12 @@ class PlayerFragment : Fragment() {
 
     private val playPauseButton: LottieAnimationView by lazy { activity!!.findViewById<LottieAnimationView>(R.id.play_pause) }
 
+    private lateinit var mediaPlayer : MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mediaPlayer = MediaPlayer.create(activity, R.raw.beep_short)
 
         retainInstance = true
     }
@@ -48,6 +53,8 @@ class PlayerFragment : Fragment() {
 
         model.currentKey.observe(this, Observer<String> { newValue ->
             currentKeyText.text = newValue
+
+            playBeep()
         })
 
         model.currentSet.observe(this, Observer<String> { newValue ->
@@ -106,13 +113,25 @@ class PlayerFragment : Fragment() {
         }
     }
 
+    private fun playBeep() {
+        mediaPlayer.start()
+    }
+
     private fun showCredits() {
         AlertDialog.Builder(activity as FullscreenActivity).create().apply {
-            setTitle("Credits")
+            setTitle(getString(R.string.credits_title))
             setCancelable(false)
             setMessage(resources.getString(R.string.credits))
-            setButton(AlertDialog.BUTTON_POSITIVE, "OK") { dialog, _ -> dialog.dismiss() }
+            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok)) {
+                dialog, _ -> dialog.dismiss()
+            }
             show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        mediaPlayer.release()
     }
 }
