@@ -113,8 +113,8 @@
 
         <ImageView
             android:id="@+id/info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:padding="@dimen/small_padding"
             android:src="@drawable/ic_info"
             android:layout_alignParentTop="true"
