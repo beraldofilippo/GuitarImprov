@@ -1,10 +1,9 @@
 package com.beraldo.guitarimprov
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import android.os.Handler
 import java.util.*
-
 
 /**
  * Created by Filippo Beraldo on 23/09/2018.
