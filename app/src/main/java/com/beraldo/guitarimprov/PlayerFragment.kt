@@ -25,17 +25,17 @@ class PlayerFragment : Fragment() {
         fun newInstance() = PlayerFragment()
     }
 
-    private val currentKeyText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_key) }
-    private val currentSetText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_set) }
-    private val currentInvText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_inv) }
-    private val currentScaleText: TextView by lazy { activity!!.findViewById<TextView>(R.id.current_scale) }
-    private val durationText: TextView by lazy { activity!!.findViewById<TextView>(R.id.duration) }
+    private val currentKeyText: TextView by lazy { requireActivity().findViewById(R.id.current_key) }
+    private val currentSetText: TextView by lazy { requireActivity().findViewById(R.id.current_set) }
+    private val currentInvText: TextView by lazy { requireActivity().findViewById(R.id.current_inv) }
+    private val currentScaleText: TextView by lazy { requireActivity().findViewById(R.id.current_scale) }
+    private val durationText: TextView by lazy { requireActivity().findViewById(R.id.duration) }
 
-    private val minusDuration: ImageView by lazy { activity!!.findViewById<ImageView>(R.id.minus) }
-    private val plusDuration: ImageView by lazy { activity!!.findViewById<ImageView>(R.id.plus) }
-    private val info: ImageView by lazy { activity!!.findViewById<ImageView>(R.id.info) }
+    private val minusDuration: ImageView by lazy { requireActivity().findViewById(R.id.minus) }
+    private val plusDuration: ImageView by lazy { requireActivity().findViewById(R.id.plus) }
+    private val info: ImageView by lazy { requireActivity().findViewById(R.id.info) }
 
-    private val playPauseButton: LottieAnimationView by lazy { activity!!.findViewById<LottieAnimationView>(R.id.play_pause) }
+    private val playPauseButton: LottieAnimationView by lazy { requireActivity().findViewById(R.id.play_pause) }
 
     private lateinit var mediaPlayer : MediaPlayer
 
@@ -43,39 +43,36 @@ class PlayerFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         mediaPlayer = MediaPlayer.create(activity, R.raw.beep_short)
-
-        retainInstance = true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val model = ViewModelProviders.of(this)
-                .get(PlayerViewModel::class.java)
+        val model = ViewModelProviders.of(this)[PlayerViewModel::class.java]
 
-        model.currentKey.observe(this, Observer<String> { newValue ->
+        model.currentKey.observe(viewLifecycleOwner) { newValue ->
             currentKeyText.text = newValue
 
             playBeep()
-        })
+        }
 
-        model.currentSet.observe(this, Observer<String> { newValue ->
+        model.currentSet.observe(viewLifecycleOwner) { newValue ->
             currentSetText.text = newValue
-        })
+        }
 
-        model.currentInv.observe(this, Observer<String> { newValue ->
+        model.currentInv.observe(viewLifecycleOwner) { newValue ->
             currentInvText.text = newValue
-        })
+        }
 
-        model.currentScale.observe(this, Observer<String> { newValue ->
+        model.currentScale.observe(viewLifecycleOwner) { newValue ->
             currentScaleText.text = newValue
-        })
+        }
 
-        model.playingStatus.observe(this, Observer<Boolean> { playing ->
+        model.playingStatus.observe(viewLifecycleOwner) { playing ->
             startPlayPauseAnimation(playPauseButton, playing)
-        })
+        }
 
-        model.durationStatus.observe(this, Observer<Int> { newValue ->
+        model.durationStatus.observe(viewLifecycleOwner) { newValue ->
             durationText.text = getFormattedDuration(newValue)
-        })
+        }
 
         minusDuration.setOnClickListener {
             model.onMinusClick()
